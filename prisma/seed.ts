@@ -16,6 +16,7 @@ async function main() {
     return prisma.user.create({
       data: {
         id: user.id,
+        email: user.email,
         name: user.name,
         avatar_url: user.avatar_url,
       },
