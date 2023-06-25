@@ -39,7 +39,7 @@ export default function LoginPage() {
               <Image src={googleIcon} height={32} width={32} alt="" />
               Entrar com Google
             </button>
-            <button className="flex items-center gap-5 px-6 py-5 text-gray-200 text-lg font-semibold leading-none bg-gray-600 rounded-lg w-full text-left">
+            <button onClick={() => signIn('github')} className="flex items-center gap-5 px-6 py-5 text-gray-200 text-lg font-semibold leading-none bg-gray-600 rounded-lg w-full text-left">
               <Image src={githubIcon} height={32} width={32} alt="" />
               Entrar com GitHub
             </button>
