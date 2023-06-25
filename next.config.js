@@ -7,7 +7,13 @@ const nextConfig = {
         hostname: 'avatars.githubusercontent.com',
         pathname: '/**',
         port: '',
-      }
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '/**',
+        port: '',
+      },
     ],
   }
 };

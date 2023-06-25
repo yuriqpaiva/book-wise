@@ -6,14 +6,15 @@ import { Sidebar } from '@/components/Sidebar';
 export default function InternalLayout({ children }: { children: ReactNode }) {
   return (
     <div className="p-5 flex h-screen ">
-      <aside className="w-[232px] rounded-xl bg-aside bg-no-repeat bg-cover flex flex-col items-center px-10 py-8">
+      <div className='w-[232px]' />
+      <aside className="w-[232px] rounded-xl bg-aside bg-no-repeat bg-cover flex flex-col items-center px-10 py-8 fixed h-[calc(100vh-2.5rem)]">
         <div className="flex justify-center mb-16">
           <Image src={logoImage} alt="" width={128} height={32} quality={100} />
         </div>
 
         <Sidebar />
       </aside>
-      <main>{children}</main>
+      <main className='w-full pl-32 pt-16 pr-24'>{children}</main>
     </div>
   );
 }

@@ -8,8 +8,8 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'login-cover': 'url("/login-cover.png")',
-        'aside': 'url("/aside-bg.png")',
+        'login-cover': 'url("/images/login-cover.png")',
+        'aside': 'url("/images/aside-bg.png")',
         'gradient-vertical': `linear-gradient(180deg, #7FD1CC 0%, #9694F5 100%)`,
         'gradient-horizontal': `linear-gradient(90deg, #7FD1CC 0%, #9694F5 100%)`,
       },
