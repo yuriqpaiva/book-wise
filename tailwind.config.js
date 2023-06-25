@@ -9,9 +9,9 @@ module.exports = {
     extend: {
       backgroundImage: {
         'login-cover': 'url("/login-cover.png")',
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'aside': 'url("/aside-bg.png")',
+        'gradient-vertical': `linear-gradient(180deg, #7FD1CC 0%, #9694F5 100%)`,
+        'gradient-horizontal': `linear-gradient(90deg, #7FD1CC 0%, #9694F5 100%)`,
       },
       colors: {
         white: '#FFFFFF',
