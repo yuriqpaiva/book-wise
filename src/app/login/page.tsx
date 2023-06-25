@@ -7,6 +7,7 @@ import githubIcon from '../../assets/icons/github.svg';
 import rocketIcon from '../../assets/icons/rocket.svg';
 
 import { signIn } from 'next-auth/react';
+import Link from 'next/link';
 
 export default function LoginPage() {
   return (
@@ -33,20 +34,33 @@ export default function LoginPage() {
           </span>
           <div className="flex flex-col gap-4">
             <button
-              onClick={() => signIn('google')}
+              onClick={() =>
+                signIn('google', {
+                  callbackUrl: '/',
+                })
+              }
               className="flex items-center gap-5 px-6 py-5 text-gray-200 text-lg font-semibold leading-none bg-gray-600 rounded-lg w-full text-left"
             >
               <Image src={googleIcon} height={32} width={32} alt="" />
               Entrar com Google
             </button>
-            <button onClick={() => signIn('github')} className="flex items-center gap-5 px-6 py-5 text-gray-200 text-lg font-semibold leading-none bg-gray-600 rounded-lg w-full text-left">
+            <button
+              onClick={() =>
+                signIn('github', {
+                  callbackUrl: '/',
+                })
+              }
+              className="flex items-center gap-5 px-6 py-5 text-gray-200 text-lg font-semibold leading-none bg-gray-600 rounded-lg w-full text-left"
+            >
               <Image src={githubIcon} height={32} width={32} alt="" />
               Entrar com GitHub
             </button>
-            <button className="flex items-center gap-5 px-6 py-5 text-gray-200 text-lg font-semibold leading-none bg-gray-600 rounded-lg w-full text-left">
-              <Image src={rocketIcon} height={32} width={32} alt="" />
-              Acessar como visitante
-            </button>
+            <Link href="/">
+              <button className="flex items-center gap-5 px-6 py-5 text-gray-200 text-lg font-semibold leading-none bg-gray-600 rounded-lg w-full text-left">
+                <Image src={rocketIcon} height={32} width={32} alt="" />
+                Acessar como visitante
+              </button>
+            </Link>
           </div>
         </div>
       </div>

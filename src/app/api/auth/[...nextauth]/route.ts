@@ -1,7 +1,7 @@
 import { PrismaAdapter } from '@/lib/adapters/prisma-adapter';
 import NextAuth from 'next-auth';
-import GoogleProvider, { GoogleProfile } from "next-auth/providers/google";
-import GitHubProvider, { GithubProfile } from "next-auth/providers/github";
+import GoogleProvider, { GoogleProfile } from 'next-auth/providers/google';
+import GitHubProvider, { GithubProfile } from 'next-auth/providers/github';
 
 const handler = NextAuth({
   adapter: PrismaAdapter(),
@@ -15,7 +15,7 @@ const handler = NextAuth({
           name: profile.name,
           email: profile.email,
           avatar_url: profile.picture,
-        }
+        };
       },
     }),
     GitHubProvider({
@@ -27,15 +27,23 @@ const handler = NextAuth({
           name: profile.name ?? '',
           email: profile.email,
           avatar_url: profile.avatar_url,
-        }
+        };
       },
-    })
+    }),
   ],
   callbacks: {
-    async redirect({baseUrl}) {
+    async redirect({ url, baseUrl }) {
+      if (url.startsWith('/')) return `${baseUrl}${url}`;
+      else if (new URL(url).origin === baseUrl) return url;
       return baseUrl;
-    }
-  }
+    },
+    async session({ session, user }) {
+      return {
+        ...session,
+        user,
+      };
+    },
+  },
 });
 
 export { handler as GET, handler as POST };
