@@ -1,6 +1,6 @@
 import { Box } from './Box';
-import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid';
 import Image from 'next/image';
+import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid';
 import { StarIcon as StarIconOutline } from '@heroicons/react/24/outline';
 import { formatDistance } from 'date-fns';
 import pt_BR from 'date-fns/locale/pt-BR';
@@ -30,7 +30,7 @@ export function RatingCard({ user, rate, created_at, book }: Props) {
   );
 
   return (
-    <Box className="max-w-[560px]">
+    <Box className="max-w-[560px] bg-gray-700">
       <header className="flex justify-between">
         <div className="flex gap-4">
           <Image
@@ -44,7 +44,7 @@ export function RatingCard({ user, rate, created_at, book }: Props) {
             <strong className="block font-normal text-sm text-gray-200">
               {user.name}
             </strong>
-            <div className='first-letter:capitalize'>
+            <div className="first-letter:capitalize">
               <span className="text-sm text-gray-400">
                 {formattedDistanceDate}
               </span>
@@ -64,10 +64,12 @@ export function RatingCard({ user, rate, created_at, book }: Props) {
       <div className="mt-8 flex gap-5">
         <Image src={book.cover_url} alt="" width={108} height={152} />
         <div className="flex flex-col justify-between">
-          <h3 className="font-semibold">{book.name}</h3>
-          <span className="block text-gray-400 text-sm mb-5">
-            {book.author}
-          </span>
+          <div>
+            <h3 className="font-semibold">{book.name}</h3>
+            <span className="block text-gray-400 text-sm mb-5">
+              {book.author}
+            </span>
+          </div>
           <p className="line-clamp-4 text-sm text-gray-300">{book.summary}</p>
         </div>
       </div>

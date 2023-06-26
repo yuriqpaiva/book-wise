@@ -1,3 +1,4 @@
+import { LastReadCard } from '@/components/LastReadCard';
 import { PopularBookCard } from '@/components/PopularBookCard';
 import { RatingCard } from '@/components/RatingCard';
 import {
@@ -49,6 +50,9 @@ export default async function Home() {
           <ArrowTrendingUpIcon className="h-8 w-8 text-green-100" />
           Home page
         </h1>
+
+        <LastReadCard />
+
         <h2 className="text-sm font-normal mt-10 mb-4">
           Avaliações mais recentes
         </h2>
