@@ -35,7 +35,12 @@ export function Sidebar() {
           />
         ))}
         {status === 'authenticated' && (
-          <SidebarItem Icon={UserIcon} name="Perfil" href="/profile" />
+          <SidebarItem
+            Icon={UserIcon}
+            name="Perfil"
+            href="/profile"
+            active={pathname === '/profile'}
+          />
         )}
       </ul>
 

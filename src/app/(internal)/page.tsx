@@ -45,7 +45,7 @@ export default async function Home() {
 
   return (
     <div className="grid grid-cols-content gap-x-16">
-      <div className="">
+      <div>
         <h1 className="flex gap-3 text-2xl font-semibold">
           <ArrowTrendingUpIcon className="h-8 w-8 text-green-100" />
           Home page
@@ -63,7 +63,7 @@ export default async function Home() {
           ))}
         </div>
       </div>
-      <div className="">
+      <div>
         <div className="mt-[4.5rem] mb-4 flex items-center justify-between">
           <h2 className="text-sm">Livros populares</h2>
           <Link
