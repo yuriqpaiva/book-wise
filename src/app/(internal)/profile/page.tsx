@@ -28,11 +28,28 @@ interface Rating {
   };
 }
 
+interface ProfileInfo {
+  created_year?: number;
+  pages_read: number;
+  books_rated: number;
+  authors_read: number;
+  most_read_category: string;
+}
+
 export async function getLastRatings(userId: string) {
   const response = await fetch(
     `${process.env.APP_URL}/api/books/last-ratings/${userId}`
   );
   const data = (await response.json()) as Rating[];
+
+  return data;
+}
+
+export async function getProfileInfo(userId: string) {
+  const response = await fetch(
+    `${process.env.APP_URL}/api/users/info/${userId}`
+  );
+  const data = (await response.json()) as ProfileInfo;
 
   return data;
 }
@@ -44,7 +61,13 @@ export default async function ProfilePage() {
     redirect('/login');
   }
 
-  const ratings = await getLastRatings(data.user.id);
+  const ratingsData = getLastRatings(data.user.id);
+  const profileInfoData = getProfileInfo(data.user.id);
+
+  const [ratings, profileInfo] = await Promise.all([
+    ratingsData,
+    profileInfoData,
+  ]);
 
   return (
     <div className="grid grid-cols-[624px_1fr] gap-x-16">
@@ -61,7 +84,7 @@ export default async function ProfilePage() {
           ))}
         </div>
       </div>
-      <div className="h-96 mt-[4.5rem] border-l border-gray-700 flex flex-col items-center">
+      <div className="h-full mt-[4.5rem] border-l border-gray-700 flex flex-col items-center">
         <div className="h-[4.75rem] w-[4.75rem] bg-gradient-vertical rounded-full flex items-center justify-center">
           {data?.user.avatar_url ? (
             <Image
@@ -78,7 +101,9 @@ export default async function ProfilePage() {
           )}
         </div>
         <h2 className="text-xl font-semibold mt-5">{data.user.name}</h2>
-        <span className="block text-gray-400 text-sm">Membro desde 2019</span>
+        <span className="block text-gray-400 text-sm">
+          Membro desde {profileInfo.created_year}
+        </span>
 
         <div className="max-w-[2rem] w-full h-1 bg-gradient-horizontal rounded-full mt-10"></div>
 
@@ -87,7 +112,7 @@ export default async function ProfilePage() {
             <BookOpenIcon className="h-8 w-8 text-green-100" />
             <div>
               <strong className="block text-gray-200 font-semibold">
-                3853
+                {profileInfo.pages_read}
               </strong>
               <span className="block text-sm text-gray-300">Páginas lidas</span>
             </div>
@@ -96,7 +121,9 @@ export default async function ProfilePage() {
           <div className="flex gap-5 items-center">
             <StarIcon className="h-8 w-8 text-green-100" />
             <div>
-              <strong className="block text-gray-200 font-semibold">10</strong>
+              <strong className="block text-gray-200 font-semibold">
+                {profileInfo.books_rated}
+              </strong>
               <span className="block text-sm text-gray-300">
                 Livros avaliados
               </span>
@@ -106,7 +133,9 @@ export default async function ProfilePage() {
           <div className="flex gap-5 items-center">
             <UsersIcon className="h-8 w-8 text-green-100" />
             <div>
-              <strong className="block text-gray-200 font-semibold">10</strong>
+              <strong className="block text-gray-200 font-semibold">
+                {profileInfo.authors_read}
+              </strong>
               <span className="block text-sm text-gray-300">Autores lidos</span>
             </div>
           </div>
@@ -115,7 +144,7 @@ export default async function ProfilePage() {
             <BookmarkIcon className="h-8 w-8 text-green-100" />
             <div>
               <strong className="block text-gray-200 font-semibold">
-                Computação
+                {profileInfo.most_read_category}
               </strong>
               <span className="block text-sm text-gray-300">
                 Categoria mais lida
