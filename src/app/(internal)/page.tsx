@@ -48,7 +48,7 @@ export default async function Home() {
       <div>
         <h1 className="flex gap-3 text-2xl font-semibold">
           <ArrowTrendingUpIcon className="h-8 w-8 text-green-100" />
-          Home page
+          Início
         </h1>
 
         <LastReadCard />
