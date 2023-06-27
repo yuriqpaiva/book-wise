@@ -4,6 +4,7 @@ import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid';
 import { StarIcon as StarIconOutline } from '@heroicons/react/24/outline';
 import { formatDistance } from 'date-fns';
 import pt_BR from 'date-fns/locale/pt-BR';
+import { useFormatDistanceDateFromNow } from '@/hooks/useFormatDistanceDateFromNow';
 
 interface Props {
   user: {
@@ -23,11 +24,7 @@ interface Props {
 }
 
 export function RatingCard({ user, rate, created_at, book }: Props) {
-  const formattedDistanceDate = formatDistance(
-    new Date(created_at),
-    new Date(),
-    { addSuffix: true, locale: pt_BR }
-  );
+  const formattedDistanceDate = useFormatDistanceDateFromNow(created_at);
 
   return (
     <Box className="max-w-[560px] bg-gray-700">

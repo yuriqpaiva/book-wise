@@ -1,39 +1,52 @@
 import Image from 'next/image';
 import { Box } from './Box';
 import { RatingStars } from './RatingStars';
+import { useFormatDistanceDateFromNow } from '@/hooks/useFormatDistanceDateFromNow';
 
-export function ProfileBookCard() {
+interface Props {
+  description: string;
+  rate: number;
+  created_at: string;
+  book: {
+    id: string;
+    name: string;
+    author: string;
+    summary: string;
+    cover_url: string;
+    total_pages: number;
+    created_at: string;
+  };
+}
+
+export function ProfileBookCard({
+  book,
+  rate,
+  description,
+  created_at,
+}: Props) {
+  const formattedDistanceDate = useFormatDistanceDateFromNow(created_at);
+
   return (
     <div>
-      <span className="text-sm text-gray-300 block mb-2">Há 2 dias</span>
-      <Box className='bg-gray-700'>
+      <div className='first-letter:capitalize mb-2'>
+        <span className="text-sm text-gray-300 block">
+          {formattedDistanceDate}
+        </span>
+      </div>
+      <Box className="bg-gray-700">
         <div className="flex gap-6 mb-6">
           <div>
-            <Image
-              src="/images/books/arquitetura-limpa.png"
-              width={98}
-              height={134}
-              alt=""
-            />
+            <Image src={book.cover_url} width={98} height={134} alt="" />
           </div>
           <div className="flex flex-col justify-between">
             <div>
-              <h4 className="text-lg font-semibold">Entendendo Algoritmos</h4>
-              <span className="block text-gray-400 text-sm">Yuri Paiva</span>
+              <h4 className="text-lg font-semibold">{book.name}</h4>
+              <span className="block text-gray-400 text-sm">{book.author}</span>
             </div>
-            <RatingStars rate={3} />
+            <RatingStars rate={rate} />
           </div>
         </div>
-        <p className='text-sm text-gray-300'>
-          Tristique massa sed enim lacinia odio. Congue ut faucibus nunc vitae
-          non. Nam feugiat vel morbi viverra vitae mi. Vitae fringilla ut et
-          suspendisse enim suspendisse vitae. Leo non eget lacus sollicitudin
-          tristique pretium quam. Mollis et luctus amet sed convallis varius
-          massa sagittis. Proin sed proin at leo quis ac sem. Nam donec accumsan
-          curabitur amet tortor quam sit. Bibendum enim sit dui lorem urna amet
-          elit rhoncus ut. Aliquet euismod vitae ut turpis. Aliquam amet integer
-          pellentesque.
-        </p>
+        <p className="text-sm text-gray-300">{description}</p>
       </Box>
     </div>
   );
