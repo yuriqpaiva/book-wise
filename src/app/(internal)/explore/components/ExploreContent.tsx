@@ -5,9 +5,13 @@ import { FilterTag } from '@/components/FilterTag';
 import { Book, Category } from '@prisma/client';
 import { useState } from 'react';
 
+interface BookWithAverageRate extends Book {
+  averageRate: number;
+}
+
 interface Props {
   categories: Category[];
-  books: Book[];
+  books: BookWithAverageRate[];
 }
 
 export function ExploreContent({ categories, books }: Props) {

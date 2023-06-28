@@ -3,6 +3,10 @@ import { BookOpenIcon } from '@heroicons/react/24/outline';
 import { Book, Category } from '@prisma/client';
 import { ExploreContent } from './components/ExploreContent';
 
+interface BookWithAverageRate extends Book {
+  averageRate: number;
+}
+
 async function getCategories() {
   const response = await fetch(`${process.env.APP_URL}/api/books/categories`);
   const data = (await response.json()) as Category[];
@@ -12,7 +16,7 @@ async function getCategories() {
 
 async function getBooks() {
   const response = await fetch(`${process.env.APP_URL}/api/books`);
-  const data = (await response.json()) as Book[];
+  const data = (await response.json()) as BookWithAverageRate[];
 
   return data;
 }
