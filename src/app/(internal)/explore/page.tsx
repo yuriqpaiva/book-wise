@@ -1,7 +1,6 @@
 import { SearchInput } from '@/components/SearchInput';
 import { BookOpenIcon } from '@heroicons/react/24/outline';
-import { Category } from '@prisma/client';
-import { useState } from 'react';
+import { Book, Category } from '@prisma/client';
 import { ExploreContent } from './components/ExploreContent';
 
 async function getCategories() {
@@ -11,8 +10,18 @@ async function getCategories() {
   return data;
 }
 
+async function getBooks() {
+  const response = await fetch(`${process.env.APP_URL}/api/books`);
+  const data = (await response.json()) as Book[];
+
+  return data;
+}
+
 export default async function Explore() {
-  const categories = await getCategories();
+  const categoriesData = getCategories();
+  const booksData = getBooks();
+
+  const [categories, books] = await Promise.all([categoriesData, booksData]);
 
   return (
     <div className="flex w-full flex-col">
@@ -24,7 +33,7 @@ export default async function Explore() {
         <SearchInput className="max-w-[433px]" />
       </div>
 
-      <ExploreContent categories={categories} />
+      <ExploreContent categories={categories} books={books} />
     </div>
   );
 }

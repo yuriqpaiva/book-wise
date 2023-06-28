@@ -1,14 +1,16 @@
 'use client';
 
+import { ExploreBookCard } from '@/components/ExploreBookCard';
 import { FilterTag } from '@/components/FilterTag';
-import { Category } from '@prisma/client';
+import { Book, Category } from '@prisma/client';
 import { useState } from 'react';
 
 interface Props {
   categories: Category[];
+  books: Book[];
 }
 
-export function ExploreContent({ categories }: Props) {
+export function ExploreContent({ categories, books }: Props) {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   function handleSelectAll() {
@@ -35,6 +37,12 @@ export function ExploreContent({ categories }: Props) {
             onClick={() => handleCategoryClick(category.id)}
           />
         ))}
+
+        <div className="w-full grid grid-cols-3 gap-5 mt-12 mb-10">
+          {books.map((book) => (
+            <ExploreBookCard key={book.id} book={book} />
+          ))}
+        </div>
       </div>
     </div>
   );
