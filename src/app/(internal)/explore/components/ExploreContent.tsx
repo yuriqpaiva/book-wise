@@ -6,7 +6,8 @@ import { Book, Category } from '@prisma/client';
 import { useState } from 'react';
 
 interface BookWithAverageRate extends Book {
-  averageRate: number;
+  average_rate: number;
+  read: boolean;
 }
 
 interface Props {
@@ -22,6 +23,12 @@ export function ExploreContent({ categories, books }: Props) {
   }
 
   function handleCategoryClick(categoryId: string) {
+    if (selectedCategories.includes(categoryId)) {
+      setSelectedCategories((prev) =>
+        prev.filter((category) => category !== categoryId)
+      );
+      return;
+    }
     setSelectedCategories((prev) => [...prev, categoryId]);
   }
 

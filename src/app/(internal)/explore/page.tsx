@@ -2,9 +2,12 @@ import { SearchInput } from '@/components/SearchInput';
 import { BookOpenIcon } from '@heroicons/react/24/outline';
 import { Book, Category } from '@prisma/client';
 import { ExploreContent } from './components/ExploreContent';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 interface BookWithAverageRate extends Book {
-  averageRate: number;
+  read: boolean;
+  average_rate: number;
 }
 
 async function getCategories() {
@@ -14,16 +17,17 @@ async function getCategories() {
   return data;
 }
 
-async function getBooks() {
-  const response = await fetch(`${process.env.APP_URL}/api/books`);
+async function getBooks(userId: string) {
+  const response = await fetch(`${process.env.APP_URL}/api/books?user_id=${userId}`);
   const data = (await response.json()) as BookWithAverageRate[];
 
   return data;
 }
 
 export default async function Explore() {
+  const data = await getServerSession(authOptions)
   const categoriesData = getCategories();
-  const booksData = getBooks();
+  const booksData = getBooks(data?.user.id ?? '');
 
   const [categories, books] = await Promise.all([categoriesData, booksData]);
 

@@ -1,27 +1,53 @@
 import { prisma } from '@/lib/prisma';
-import { Book } from '@prisma/client';
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 
-interface BookWithAverageRate extends Book {
-  averageRate: number;
+export async function GET(request: NextRequest) {
+  const query = request.nextUrl.searchParams;
+
+  const user_id = query.get('user_id') ?? '';
+
+  const booksWithAverageRate = await getBooksAndRatings(user_id);
+
+  const booksWithIntegerAverageRateAndWasRated = booksWithAverageRate.map(
+    (book) => ({
+      id: book.id,
+      name: book.name,
+      author: book.author,
+      cover_url: book.cover_url,
+      total_pages: book.total_pages,
+      read: book.rated,
+      average_rate: Math.floor(book.average_rate),
+      created_at: book.created_at,
+    })
+  );
+
+  return NextResponse.json(booksWithIntegerAverageRateAndWasRated);
 }
 
-export async function GET() {
-  const booksWithAverageRate = await prisma.$queryRaw<BookWithAverageRate[]>`
-  SELECT
-    b.*,
-    AVG(r.rate) AS averageRate
-  FROM
-    books b
-    LEFT JOIN ratings r ON r.book_id = b.id
-  GROUP BY
-    b.id;
-`;
+async function getBooksAndRatings(user_id: string) {
+  const books = await prisma.book.findMany({
+    include: {
+      ratings: {
+        select: {
+          rate: true,
+          user_id: true,
+        },
+      },
+    },
+  });
 
-  const booksWithIntegerAverageRate = booksWithAverageRate.map((book) => ({
-    ...book,
-    averageRate: Math.floor(book.averageRate),
-  }));
+  const booksWithAverageRate = books.map((book) => {
+    const { ratings, ...bookData } = book;
+    const totalRates = ratings.length;
+    const sumRates = ratings.reduce((sum, rating) => sum + rating.rate, 0);
+    const averageRate = Math.floor(sumRates / totalRates);
 
-  return NextResponse.json(booksWithIntegerAverageRate);
+    return {
+      ...bookData,
+      average_rate: averageRate,
+      rated: ratings.some((rating) => rating.user_id === user_id),
+    };
+  });
+
+  return booksWithAverageRate;
 }
