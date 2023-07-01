@@ -15,7 +15,9 @@ export async function GET(request: NextRequest) {
       author: book.author,
       cover_url: book.cover_url,
       total_pages: book.total_pages,
+      total_rates: book.total_rates,
       read: book.rated,
+      categories: book.categories,
       average_rate: Math.floor(book.average_rate),
       created_at: book.created_at,
     })
@@ -27,6 +29,11 @@ export async function GET(request: NextRequest) {
 async function getBooksAndRatings(user_id: string) {
   const books = await prisma.book.findMany({
     include: {
+      categories:  {
+        select: {
+          category: true,
+        }
+      },
       ratings: {
         select: {
           rate: true,
@@ -45,6 +52,8 @@ async function getBooksAndRatings(user_id: string) {
     return {
       ...bookData,
       average_rate: averageRate,
+      total_rates: totalRates,
+      categories: book.categories.map((category) => category.category.name),
       rated: ratings.some((rating) => rating.user_id === user_id),
     };
   });

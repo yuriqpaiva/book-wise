@@ -1,26 +1,32 @@
 import Image from 'next/image';
 import { RatingStars } from './RatingStars';
 import { Book } from '@prisma/client';
+import { HTMLAttributes } from 'react';
 
 interface BookWithAverageRate extends Book {
   average_rate: number;
   read: boolean;
 }
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLButtonElement> {
   book: BookWithAverageRate;
 }
 
-export function ExploreBookCard({ book }: Props) {
+export function ExploreBookCard({ book, ...props }: Props) {
   return (
-    <div className="relative w-full px-5 py-4 bg-gray-700 rounded-lg flex gap-5">
+    <button
+      className="relative w-full px-5 py-4 bg-gray-700 rounded-lg flex gap-5"
+      {...props}
+    >
       <Image src={book.cover_url} width={108} height={152} alt="" />
-      <div className="flex flex-col justify-between">
+      <div className="flex flex-col justify-between h-full">
         <div>
-          <strong className="font-semibold inline-block w-full">
+          <strong className="font-semibold inline-block w-full text-left">
             {book.name}
           </strong>
-          <span className="text-sm text-gray-400">{book.author}</span>
+          <span className="text-sm text-gray-400 text-left block">
+            {book.author}
+          </span>
         </div>
         <RatingStars rate={book.average_rate} />
       </div>
@@ -29,6 +35,6 @@ export function ExploreBookCard({ book }: Props) {
           <span className="text-green-100 text-xs uppercase">Lido</span>
         </div>
       )}
-    </div>
+    </button>
   );
 }

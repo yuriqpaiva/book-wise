@@ -6,6 +6,8 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 interface BookWithAverageRate extends Book {
+  categories: string[];
+  total_rates: number;
   read: boolean;
   average_rate: number;
 }
