@@ -20,6 +20,8 @@ export function BookDrawer({ isOpen, onClose, book }: Props) {
 
   if (isOpen) {
     document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'auto';
   }
 
   useEffect(() => {

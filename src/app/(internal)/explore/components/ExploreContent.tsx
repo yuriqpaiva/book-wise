@@ -6,6 +6,12 @@ import { FilterTag } from '@/components/FilterTag';
 import { Category } from '@prisma/client';
 import { useState } from 'react';
 import { ExploreBookData } from '../page';
+import { useAtomValue, useSetAtom } from 'jotai';
+import {
+  closeBookDrawerAtom,
+  isBookDrawerOpenAtom,
+  openBookDrawerAtom,
+} from '@/atoms/book-drawer-atoms';
 
 interface Props {
   categories: Category[];
@@ -29,17 +35,20 @@ export function ExploreContent({ categories, books }: Props) {
     setSelectedCategories((prev) => [...prev, categoryId]);
   }
 
-  const [isBookDrawerOpen, setIsBookDrawerOpen] = useState(false);
+  const isBookDrawerOpen = useAtomValue(isBookDrawerOpenAtom);
+  const closeBookDrawer = useSetAtom(closeBookDrawerAtom);
+  const openBookDrawer = useSetAtom(openBookDrawerAtom);
+
   const [currentSelectedBook, setCurrentSelectedBook] =
     useState<ExploreBookData | null>(null);
 
   function handleBookDrawerOpen(book: ExploreBookData) {
     setCurrentSelectedBook(book);
-    setIsBookDrawerOpen(true);
+    openBookDrawer();
   }
 
   async function handleBookDrawerClose() {
-    setIsBookDrawerOpen(false);
+    closeBookDrawer();
   }
 
   return (

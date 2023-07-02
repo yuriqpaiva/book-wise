@@ -29,6 +29,9 @@ export async function GET(request: NextRequest) {
 
 async function getBooksAndRatings(user_id: string) {
   const books = await prisma.book.findMany({
+    orderBy: {
+      created_at: 'desc',
+    },
     include: {
       categories: {
         select: {
