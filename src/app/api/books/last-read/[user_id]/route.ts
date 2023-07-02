@@ -38,7 +38,6 @@ export async function GET(
     });
 
     if (ratings.length === 0) {
-      console.log('No ratings found for the book.');
       return null;
     }
 

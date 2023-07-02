@@ -3,19 +3,13 @@
 import { BookDrawer } from '@/components/BookDrawer';
 import { ExploreBookCard } from '@/components/ExploreBookCard';
 import { FilterTag } from '@/components/FilterTag';
-import { Book, Category } from '@prisma/client';
+import { Category } from '@prisma/client';
 import { useState } from 'react';
-
-interface ExploreBook extends Book {
-  categories: string[];
-  average_rate: number;
-  total_rates: number;
-  read: boolean;
-}
+import { ExploreBookData } from '../page';
 
 interface Props {
   categories: Category[];
-  books: ExploreBook[];
+  books: ExploreBookData[];
 }
 
 export function ExploreContent({ categories, books }: Props) {
@@ -37,9 +31,9 @@ export function ExploreContent({ categories, books }: Props) {
 
   const [isBookDrawerOpen, setIsBookDrawerOpen] = useState(false);
   const [currentSelectedBook, setCurrentSelectedBook] =
-    useState<ExploreBook | null>(null);
+    useState<ExploreBookData | null>(null);
 
-  function handleBookDrawerOpen(book: ExploreBook) {
+  function handleBookDrawerOpen(book: ExploreBookData) {
     setCurrentSelectedBook(book);
     setIsBookDrawerOpen(true);
   }

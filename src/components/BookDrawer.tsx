@@ -7,23 +7,20 @@ import { useEffect, useRef } from 'react';
 import { Box } from './Box';
 import Image from 'next/image';
 import { RatingStars } from './RatingStars';
-import { Book } from '@prisma/client';
-
-interface ExploreBook extends Book {
-  average_rate: number;
-  total_rates: number;
-  read: boolean;
-  categories: string[];
-}
+import { ExploreBookData } from '@/app/(internal)/explore/page';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  book: ExploreBook | null;
+  book: ExploreBookData | null;
 }
 
 export function BookDrawer({ isOpen, onClose, book }: Props) {
   const drawerRef = useRef<HTMLDivElement>(null);
+
+  if (isOpen) {
+    document.body.style.overflow = 'hidden';
+  }
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -51,7 +48,7 @@ export function BookDrawer({ isOpen, onClose, book }: Props) {
       ></div>
       <div
         ref={drawerRef}
-        className={`h-screen bg-gray-800 fixed right-0 top-0 transition-all duration-200 ease-in-out z-20 w-[660px] px-12 py-6
+        className={`overflow-y-auto h-screen bg-gray-800 fixed right-0 top-0 transition-all duration-200 ease-in-out z-20 w-[660px] px-12 py-6
       ${isOpen ? 'translate-x-0' : 'translate-x-full'}
       `}
       >
@@ -102,6 +99,49 @@ export function BookDrawer({ isOpen, onClose, book }: Props) {
             </div>
           </Box>
         )}
+
+        <div className="mt-12">
+          <div className="flex justify-between items-center">
+            <h5 className="text-gray-200 text-sm">Avaliações</h5>
+            <button className="px-2 py-1 text-purple-100 text-center hover:bg-gray-700 rounded">
+              Avaliar
+            </button>
+          </div>
+
+          {book?.ratings && (
+            <div className="mt-6 flex flex-col gap-3">
+              {book?.ratings.map((rating) => (
+                <Box className="bg-gray-700" key={rating.id}>
+                  <div className="flex justify-between">
+                    <div className="flex gap-4">
+                      <Image
+                        className="rounded-full h-10 w-10"
+                        src={rating.user?.avatar_url || ''}
+                        height={40}
+                        width={40}
+                        alt=""
+                      />
+                      <div>
+                        <strong className="font-semibold block">
+                          {rating.user.name}
+                        </strong>
+                        <div className="first-letter:uppercase">
+                          <span className="text-gray-400 text-sm">
+                            {rating.distance_date}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <RatingStars rate={rating.rate} />
+                  </div>
+                  <p className="text-gray-300 font-sm mt-5">
+                    {rating.description}
+                  </p>
+                </Box>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </>
   );

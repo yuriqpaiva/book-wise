@@ -76,7 +76,7 @@ export default async function ProfilePage() {
           <UserIcon className="h-8 w-8 text-green-100" />
           Perfil
         </h1>
-        <SearchInput />
+        <SearchInput placeholder="Buscar livro avaliado" />
 
         <div className="mt-8 flex flex-col gap-6 pb-10">
           {ratings.map((rating) => (
