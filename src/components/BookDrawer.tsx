@@ -1,13 +1,17 @@
+'use client';
+
 import {
   BookOpenIcon,
   BookmarkIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Box } from './Box';
 import Image from 'next/image';
 import { RatingStars } from './RatingStars';
 import { ExploreBookData } from '@/app/(internal)/explore/page';
+import { useSession } from 'next-auth/react';
+import { SendRatingBox } from '@/app/(internal)/explore/components/SendRatingBox';
 
 interface Props {
   isOpen: boolean;
@@ -16,6 +20,20 @@ interface Props {
 }
 
 export function BookDrawer({ isOpen, onClose, book }: Props) {
+  const { data, status } = useSession();
+  const [ratingOpens, setRatingOpens] = useState<
+    'rating-box' | 'sign-in-modal' | null
+  >(null);
+
+  function openRatingBox() {
+    if (status !== 'authenticated') {
+      setRatingOpens('sign-in-modal');
+      return;
+    }
+
+    setRatingOpens('rating-box');
+  }
+
   const drawerRef = useRef<HTMLDivElement>(null);
 
   if (isOpen) {
@@ -102,16 +120,25 @@ export function BookDrawer({ isOpen, onClose, book }: Props) {
           </Box>
         )}
 
-        <div className="mt-12">
+        <div className="mt-12 mb-10">
           <div className="flex justify-between items-center">
             <h5 className="text-gray-200 text-sm">Avaliações</h5>
-            <button className="px-2 py-1 text-purple-100 text-center hover:bg-gray-700 rounded">
+            <button
+              className="px-2 py-1 text-purple-100 text-center hover:bg-gray-700 rounded"
+              onClick={openRatingBox}
+            >
               Avaliar
             </button>
           </div>
 
+          {ratingOpens === 'rating-box' && data?.user && (
+            <SendRatingBox user={data?.user} />
+          )}
+
+          {ratingOpens === 'sign-in-modal' && <div>Modal Opened</div>}
+
           {book?.ratings && (
-            <div className="mt-6 flex flex-col gap-3">
+            <div className="flex flex-col gap-3 mt-6">
               {book?.ratings.map((rating) => (
                 <Box className="bg-gray-700" key={rating.id}>
                   <div className="flex justify-between">
