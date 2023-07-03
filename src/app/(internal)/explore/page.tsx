@@ -6,7 +6,6 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { formatDistance } from 'date-fns';
 import pt_BR from 'date-fns/locale/pt-BR';
-import { SignInDialog } from '@/components/SignInDialog';
 
 export interface RatingWithUser extends Rating {
   user: User;
@@ -22,7 +21,7 @@ export interface ExploreBookData extends Book {
 }
 
 async function getCategories() {
-  const response = await fetch(`${process.env.APP_URL}/api/books/categories`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/books/categories`);
   const data = (await response.json()) as Category[];
 
   return data;
@@ -30,7 +29,7 @@ async function getCategories() {
 
 async function getBooks(userId: string) {
   const response = await fetch(
-    `${process.env.APP_URL}/api/books?user_id=${userId}`
+    `${process.env.NEXT_PUBLIC_APP_URL}/api/books?user_id=${userId}`
   );
   const data = (await response.json()) as ExploreBookData[];
 

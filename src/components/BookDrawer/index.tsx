@@ -12,6 +12,16 @@ import { RatingsHeader } from './RatingsHeader';
 import { useAtom } from 'jotai';
 import { toggleSignModalAtom } from '@/atoms/sign-in-modal-atoms';
 import { SignInDialog } from '../SignInDialog';
+import { FormProvider, useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+const ratingSchema = z.object({
+  rate: z.number().int().min(1, { message: 'Campo obrigatório' }).max(5),
+  description: z.string().min(1, { message: 'Campo obrigatório' }).max(450),
+});
+
+export type RatingSchemaData = z.infer<typeof ratingSchema>;
 
 interface Props {
   isOpen: boolean;
@@ -24,7 +34,37 @@ export function BookDrawer({ isOpen, onClose, book }: Props) {
   const [ratingOpens, setRatingOpens] = useState<
     'rating-box' | 'sign-in-modal' | null
   >(null);
+
   const [, toggleSignInModal] = useAtom(toggleSignModalAtom);
+
+  const methods = useForm<RatingSchemaData>({
+    resolver: zodResolver(ratingSchema),
+    defaultValues: {
+      rate: 0,
+    },
+  });
+
+  async function handleSubmitRating(ratingData: RatingSchemaData) {
+    const { rate, description } = ratingData;
+
+    try {
+      const response = await fetch('/api/books', {
+        method: 'POST',
+        body: JSON.stringify({
+          rate,
+          description,
+          book_id: book?.id,
+          user_id: data?.user?.id,
+        }),
+      });
+
+      if (response.status === 201) {
+        handleCloseRatingBox();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   function handleCloseRatingBox() {
     setRatingOpens(null);
@@ -67,14 +107,16 @@ export function BookDrawer({ isOpen, onClose, book }: Props) {
           <RatingsHeader onSendRatingOpen={openRatingBox} />
 
           {ratingOpens === 'rating-box' && data?.user && (
-            <SendRatingBox
-              user={data?.user}
-              onClose={handleCloseRatingBox}
-              onSubmit={() => {}}
-            />
+            <FormProvider {...methods}>
+              <SendRatingBox
+                user={data?.user}
+                onClose={handleCloseRatingBox}
+                onSubmit={methods.handleSubmit(handleSubmitRating)}
+              />
+            </FormProvider>
           )}
 
-          <RatingsWrapper book={book} />
+          <RatingsWrapper ratings={book?.ratings} />
         </div>
       </div>
       <SignInDialog ref={signInModalRef} />

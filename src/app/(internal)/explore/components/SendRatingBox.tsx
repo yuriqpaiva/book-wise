@@ -1,12 +1,12 @@
 'use client';
 
+import { RatingSchemaData } from '@/components/BookDrawer';
 import { Box } from '@/components/Box';
 import { RateInput } from '@/components/RateInput';
-import { RatingStars } from '@/components/RatingStars';
 import { TextArea } from '@/components/TextArea';
 import { CheckIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
-import { useState } from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
 
 interface Props {
   user: {
@@ -18,16 +18,9 @@ interface Props {
 }
 
 export function SendRatingBox({ user, onClose, onSubmit }: Props) {
-  const [rating, setRating] = useState(0);
-  const [description, setDescription] = useState('');
+  const { register, control, watch } = useFormContext<RatingSchemaData>();
 
-  function handleRatingChange(value: number) {
-    setRating(value);
-  }
-
-  function handleDescriptionChange(value: string) {
-    setDescription(value);
-  }
+  const description = watch('description');
 
   return (
     <Box className="bg-gray-700 mt-6" as="form" onSubmit={onSubmit}>
@@ -42,12 +35,18 @@ export function SendRatingBox({ user, onClose, onSubmit }: Props) {
           />
           <strong className="font-semibold">{user.name}</strong>
         </div>
-        <RateInput value={rating} onChange={handleRatingChange} />
+        <Controller
+          name="rate"
+          control={control}
+          render={({ field }) => (
+            <RateInput value={field.value} onChange={field.onChange} />
+          )}
+        />
       </div>
       <TextArea
-        placeholder="Escreva sua avaliação"
         value={description}
-        onChange={(e) => handleDescriptionChange(e.target.value)}
+        placeholder="Escreva sua avaliação"
+        {...register('description')}
       />
       <div className="flex justify-end gap-2 mt-3">
         <button
@@ -58,6 +57,7 @@ export function SendRatingBox({ user, onClose, onSubmit }: Props) {
           <XMarkIcon className="h-6 w-6 text-purple-100" />
         </button>
         <button
+          type="submit"
           title="Enviar avaliação"
           className="leading-none p-2 rounded flex justify-center items-center bg-gray-600"
         >

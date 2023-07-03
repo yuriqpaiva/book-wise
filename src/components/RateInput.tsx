@@ -29,11 +29,11 @@ export function RateInput({ value, onChange }: Props) {
       <div className="flex gap-1">
         {Array.from({ length: 5 }).map((_, i) =>
           i < value ? (
-            <button key={i} onClick={() => handleClick(i)}>
+            <button key={i} onClick={() => handleClick(i)} type='button'>
               <StarIconSolid className="h-7 w-7 text-purple-100 cursor-pointer" />
             </button>
           ) : (
-            <button key={i} onClick={() => handleClick(i)}>
+            <button key={i} onClick={() => handleClick(i)} type='button'>
               <StarIconOutline
                 className="h-7 w-7 text-purple-100 cursor-pointer"
                 key={i}

@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { NextResponse, NextRequest } from 'next/server';
+import { z } from 'zod';
 
 export async function GET(request: NextRequest) {
   const query = request.nextUrl.searchParams;
@@ -43,6 +44,7 @@ async function getBooksAndRatings(user_id: string) {
           created_at: 'desc',
         },
         select: {
+          id: true,
           user_id: true,
           user: true,
           rate: true,
@@ -70,4 +72,29 @@ async function getBooksAndRatings(user_id: string) {
   });
 
   return booksWithAverageRate;
+}
+
+const createRatingBodySchema = z.object({
+  user_id: z.string(),
+  book_id: z.string(),
+  rate: z.number().int().min(1).max(5),
+  description: z.string().max(450),
+});
+
+export async function POST(request: NextRequest, response: NextResponse) {
+  const body = await request.json();
+
+  try {
+    const ratingDTO = createRatingBodySchema.parse(body);
+
+    await prisma.rating.create({
+      data: {
+        ...ratingDTO,
+      },
+    });
+
+    return NextResponse.json({ message: 'Rating created' }, { status: 201 });
+  } catch (error) {
+    return NextResponse.json(error, { status: 400 });
+  }
 }

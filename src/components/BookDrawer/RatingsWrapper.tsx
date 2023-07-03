@@ -1,16 +1,16 @@
-import { ExploreBookData } from '@/app/(internal)/explore/page';
+import { RatingWithUser } from '@/app/(internal)/explore/page';
 import { Box } from '../Box';
 import { RatingStars } from '../RatingStars';
 import Image from 'next/image';
 
 interface Props {
-  book: ExploreBookData | null;
+  ratings: RatingWithUser[] | undefined;
 }
 
-export function RatingsWrapper({ book }: Props) {
+export function RatingsWrapper({ ratings }: Props) {
   return (
     <div className="flex flex-col gap-3 mt-6">
-      {book?.ratings.map((rating) => (
+      {ratings?.map((rating) => (
         <Box className="bg-gray-700" key={rating.id}>
           <div className="flex justify-between">
             <div className="flex gap-4">
