@@ -6,6 +6,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { formatDistance } from 'date-fns';
 import pt_BR from 'date-fns/locale/pt-BR';
+import { SignInDialog } from '@/components/SignInDialog';
 
 export interface RatingWithUser extends Rating {
   user: User;

@@ -1,12 +1,13 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 interface UseBookDrawerRefProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export function useBookDrawerRef({ isOpen, onClose}: UseBookDrawerRefProps) {
+export function useBookDrawerRef({ isOpen, onClose }: UseBookDrawerRefProps) {
   const drawerRef = useRef<HTMLDivElement>(null);
+  const signInModalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -21,7 +22,9 @@ export function useBookDrawerRef({ isOpen, onClose}: UseBookDrawerRefProps) {
       if (
         isOpen &&
         drawerRef.current &&
-        !drawerRef.current.contains(event.target as Node)
+        signInModalRef.current &&
+        !drawerRef.current.contains(event.target as Node) &&
+        !signInModalRef.current.contains(event.target as Node)
       ) {
         onClose();
       }
@@ -33,5 +36,5 @@ export function useBookDrawerRef({ isOpen, onClose}: UseBookDrawerRefProps) {
     };
   }, [isOpen, onClose]);
 
-  return drawerRef;
+  return [drawerRef, signInModalRef];
 }

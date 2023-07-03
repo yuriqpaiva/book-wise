@@ -9,6 +9,9 @@ import { BookSummaryCard } from './BookSummaryCard';
 import { RatingsWrapper } from './RatingsWrapper';
 import { useBookDrawerRef } from '@/hooks/useBookDrawerRef';
 import { RatingsHeader } from './RatingsHeader';
+import { useAtom } from 'jotai';
+import { toggleSignModalAtom } from '@/atoms/sign-in-modal-atoms';
+import { SignInDialog } from '../SignInDialog';
 
 interface Props {
   isOpen: boolean;
@@ -21,6 +24,7 @@ export function BookDrawer({ isOpen, onClose, book }: Props) {
   const [ratingOpens, setRatingOpens] = useState<
     'rating-box' | 'sign-in-modal' | null
   >(null);
+  const [, toggleSignInModal] = useAtom(toggleSignModalAtom);
 
   function handleCloseRatingBox() {
     setRatingOpens(null);
@@ -28,14 +32,14 @@ export function BookDrawer({ isOpen, onClose, book }: Props) {
 
   function openRatingBox() {
     if (status !== 'authenticated') {
-      setRatingOpens('sign-in-modal');
+      toggleSignInModal();
       return;
     }
 
     setRatingOpens('rating-box');
   }
 
-  const drawerRef = useBookDrawerRef({ isOpen, onClose });
+  const [drawerRef, signInModalRef] = useBookDrawerRef({ isOpen, onClose });
 
   return (
     <>
@@ -43,6 +47,7 @@ export function BookDrawer({ isOpen, onClose, book }: Props) {
         className={`fixed inset-0 transition-all ease-in-out duration-200 ${
           isOpen ? 'bg-black opacity-60 z-10' : 'opacity-0 -z-10'
         }`}
+        onClick={onClose}
       ></div>
       <div
         ref={drawerRef}
@@ -69,11 +74,10 @@ export function BookDrawer({ isOpen, onClose, book }: Props) {
             />
           )}
 
-          {ratingOpens === 'sign-in-modal' && <div>Modal Opened</div>}
-
           <RatingsWrapper book={book} />
         </div>
       </div>
+      <SignInDialog ref={signInModalRef} />
     </>
   );
 }
