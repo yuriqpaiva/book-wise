@@ -4,6 +4,7 @@ import { Box } from '@/components/Box';
 import { RateInput } from '@/components/RateInput';
 import { RatingStars } from '@/components/RatingStars';
 import { TextArea } from '@/components/TextArea';
+import { CheckIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import { useState } from 'react';
 
@@ -12,9 +13,11 @@ interface Props {
     name: string;
     avatar_url: string;
   };
+  onClose: () => void;
+  onSubmit: () => void;
 }
 
-export function SendRatingBox({ user }: Props) {
+export function SendRatingBox({ user, onClose, onSubmit }: Props) {
   const [rating, setRating] = useState(0);
   const [description, setDescription] = useState('');
 
@@ -27,7 +30,7 @@ export function SendRatingBox({ user }: Props) {
   }
 
   return (
-    <Box className="bg-gray-700 mt-6">
+    <Box className="bg-gray-700 mt-6" as="form" onSubmit={onSubmit}>
       <div className="flex justify-between items-center mb-6">
         <div className="flex gap-4 items-center">
           <Image
@@ -46,6 +49,21 @@ export function SendRatingBox({ user }: Props) {
         value={description}
         onChange={(e) => handleDescriptionChange(e.target.value)}
       />
+      <div className="flex justify-end gap-2 mt-3">
+        <button
+          title="Cancelar avaliação"
+          onClick={onClose}
+          className="leading-none p-2 rounded flex justify-center items-center bg-gray-600"
+        >
+          <XMarkIcon className="h-6 w-6 text-purple-100" />
+        </button>
+        <button
+          title="Enviar avaliação"
+          className="leading-none p-2 rounded flex justify-center items-center bg-gray-600"
+        >
+          <CheckIcon className="h-6 w-6 text-green-100" />
+        </button>
+      </div>
     </Box>
   );
 }
