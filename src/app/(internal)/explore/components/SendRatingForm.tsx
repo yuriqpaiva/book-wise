@@ -18,12 +18,17 @@ interface Props {
 }
 
 export function SendRatingForm({ user, onClose, onSubmit }: Props) {
-  const { register, control, watch } = useFormContext<RatingSchemaData>();
+  const {
+    register,
+    control,
+    watch,
+    formState: { errors },
+  } = useFormContext<RatingSchemaData>();
 
   const description = watch('description');
 
   return (
-    <Box className="bg-gray-700 mt-6" as="form" onSubmit={onSubmit}>
+    <Box className="bg-gray-700 mt-6 relative" as="form" onSubmit={onSubmit}>
       <div className="flex justify-between items-center mb-6">
         <div className="flex gap-4 items-center">
           <Image
@@ -52,18 +57,23 @@ export function SendRatingForm({ user, onClose, onSubmit }: Props) {
         <button
           title="Cancelar avaliação"
           onClick={onClose}
-          className="leading-none p-2 rounded flex justify-center items-center bg-gray-600"
+          className="leading-none p-2 rounded flex justify-center items-center bg-gray-650 hover:bg-gray-500"
         >
           <XMarkIcon className="h-6 w-6 text-purple-100" />
         </button>
         <button
           type="submit"
           title="Enviar avaliação"
-          className="leading-none p-2 rounded flex justify-center items-center bg-gray-600"
+          className="leading-none p-2 rounded flex justify-center items-center bg-gray-650 hover:bg-gray-500"
         >
           <CheckIcon className="h-6 w-6 text-green-100" />
         </button>
       </div>
+      {(errors.description || errors.rate) && (
+        <span className="absolute bottom-6 text-red-500 text-sm">
+          {errors.description?.message ?? errors.rate?.message}
+        </span>
+      )}
     </Box>
   );
 }

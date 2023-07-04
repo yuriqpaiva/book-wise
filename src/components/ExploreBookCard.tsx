@@ -15,7 +15,7 @@ interface Props extends HTMLAttributes<HTMLButtonElement> {
 export function ExploreBookCard({ book, ...props }: Props) {
   return (
     <button
-      className="relative w-full px-5 py-4 bg-gray-700 rounded-lg flex gap-5"
+      className="relative w-full px-5 py-4 bg-gray-700 rounded-lg flex gap-5 hover:ring-2 hover:ring-gray-500"
       {...props}
     >
       <Image src={book.cover_url} width={108} height={152} alt="" />

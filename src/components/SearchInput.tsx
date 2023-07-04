@@ -13,7 +13,7 @@ export function SearchInput({ className = '', ...props }: Props) {
     >
       <input
         type="text"
-        className="placeholder:text-gray-400 text-gray-200 bg-transparent focus:outline-none caret-green-200"
+        className="placeholder:text-gray-400 text-gray-200 bg-transparent focus:outline-none caret-green-200 focus:ring-0"
         {...props}
       />
       <MagnifyingGlassIcon className="group-focus-within:text-green-200 h-6 w-6 text-gray-500" />

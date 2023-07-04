@@ -1,6 +1,3 @@
-import { RatingWithUser } from '@/app/(internal)/explore/page';
-import { RatingCard } from './RatingCard';
-
 interface Props {
   children?: React.ReactNode;
 }

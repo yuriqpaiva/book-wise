@@ -8,7 +8,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, Props>(({ value, ...prop
       <textarea
         ref={ref}
         maxLength={450}
-        className="placeholder:text-gray-400 text-gray-200 bg-transparent focus:outline-none caret-green-200 h-full w-full resize-none text-sm"
+        className="placeholder:text-gray-400 text-gray-200 bg-transparent focus:outline-none caret-green-200 h-full w-full resize-none text-sm focus:ring-0"
         value={value}
         {...props}
       />
