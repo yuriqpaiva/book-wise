@@ -7,7 +7,9 @@ export async function GET(request: NextRequest) {
 
   const user_id = query.get('user_id') ?? '';
 
-  const booksWithAverageRate = await getBooksAndRatings(user_id);
+  const bookOrAuthor = query.get('book_or_author') ?? '';
+
+  const booksWithAverageRate = await getBooksAndRatings(user_id, bookOrAuthor);
 
   const booksWithIntegerAverageRateAndWasRated = booksWithAverageRate.map(
     (book) => ({
@@ -28,10 +30,33 @@ export async function GET(request: NextRequest) {
   return NextResponse.json(booksWithIntegerAverageRateAndWasRated);
 }
 
-async function getBooksAndRatings(user_id: string) {
+async function getBooksAndRatings(userId: string, bookOrAuthor: string) {
   const books = await prisma.book.findMany({
     orderBy: {
       created_at: 'desc',
+    },
+    where: {
+      categories: {
+        some: {
+          category: {
+            id: {
+              contains: '',
+            }
+          }
+        }
+      },
+      OR: [
+        {
+          name: {
+            contains: bookOrAuthor,
+          },
+        },
+        {
+          author: {
+            contains: bookOrAuthor,
+          },
+        },
+      ],
     },
     include: {
       categories: {
@@ -44,12 +69,8 @@ async function getBooksAndRatings(user_id: string) {
           created_at: 'desc',
         },
         select: {
-          id: true,
           user_id: true,
-          user: true,
           rate: true,
-          description: true,
-          created_at: true,
         },
       },
     },
@@ -67,7 +88,7 @@ async function getBooksAndRatings(user_id: string) {
       average_rate: averageRate,
       total_rates: totalRates,
       categories: book.categories.map((category) => category.category.name),
-      rated: ratings.some((rating) => rating.user_id === user_id),
+      rated: ratings.some((rating) => rating.user_id === userId),
     };
   });
 

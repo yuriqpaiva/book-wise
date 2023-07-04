@@ -25,7 +25,7 @@ export function RatingCard({ rating }: Props) {
       <div className="flex justify-between">
         <div className="flex gap-4">
           <Image
-            className="rounded-full h-10 w-10"
+            className="rounded-full h-10 w-10 object-cover"
             src={rating.user?.avatar_url || ''}
             height={40}
             width={40}

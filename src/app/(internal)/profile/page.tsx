@@ -84,7 +84,7 @@ export default async function ProfilePage() {
           ))}
         </div>
       </div>
-      <div className="h-full mt-[4.5rem] border-l border-gray-700 flex flex-col items-center">
+      <div className="h-full mt-[4.5rem] border-l border-gray-700 flex flex-col items-center max-w-[387px]">
         <div className="h-[4.75rem] w-[4.75rem] bg-gradient-vertical rounded-full flex items-center justify-center">
           {data?.user.avatar_url ? (
             <Image
