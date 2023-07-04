@@ -1,6 +1,6 @@
 import { BookmarkIcon, BookOpenIcon } from '@heroicons/react/24/outline';
-import { Box } from '../Box';
-import { RatingStars } from '../RatingStars';
+import { Box } from '../../../../../components/Box';
+import { RatingStars } from '../../../../../components/RatingStars';
 import Image from 'next/image';
 import { ExploreBookData } from '@/app/(internal)/explore/page';
 

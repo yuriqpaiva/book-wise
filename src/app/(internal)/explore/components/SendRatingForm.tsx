@@ -1,6 +1,6 @@
 'use client';
 
-import { RatingSchemaData } from '@/components/BookDrawer';
+import { RatingSchemaData } from '@/app/(internal)/explore/components/BookDrawer';
 import { Box } from '@/components/Box';
 import { RateInput } from '@/components/RateInput';
 import { TextArea } from '@/components/TextArea';
@@ -17,7 +17,7 @@ interface Props {
   onSubmit: () => void;
 }
 
-export function SendRatingBox({ user, onClose, onSubmit }: Props) {
+export function SendRatingForm({ user, onClose, onSubmit }: Props) {
   const { register, control, watch } = useFormContext<RatingSchemaData>();
 
   const description = watch('description');

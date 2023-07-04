@@ -1,6 +1,6 @@
 'use client';
 
-import { BookDrawer } from '@/components/BookDrawer';
+import { BookDrawer } from '@/app/(internal)/explore/components/BookDrawer';
 import { ExploreBookCard } from '@/components/ExploreBookCard';
 import { FilterTag } from '@/components/FilterTag';
 import { Category } from '@prisma/client';

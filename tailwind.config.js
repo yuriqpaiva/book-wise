@@ -8,11 +8,11 @@ module.exports = {
   theme: {
     extend: {
       gridTemplateColumns: {
-        content: '560px 1fr'
+        content: '560px 1fr',
       },
       backgroundImage: {
         'login-cover': 'url("/images/login-cover.png")',
-        'aside': 'url("/images/aside-bg.png")',
+        aside: 'url("/images/aside-bg.png")',
         'gradient-vertical': `linear-gradient(180deg, #7FD1CC 0%, #9694F5 100%)`,
         'gradient-horizontal': `linear-gradient(90deg, #7FD1CC 0%, #9694F5 100%)`,
       },
@@ -37,7 +37,7 @@ module.exports = {
           300: '#D1D6E4',
           400: '#8D95AF',
           500: '#303F73',
-          600: '#252D4A',
+          650: '#252D4A',
           700: '#181C2A',
           800: '#0E1116',
         },

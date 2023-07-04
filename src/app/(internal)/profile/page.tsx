@@ -38,7 +38,7 @@ interface ProfileInfo {
 
 export async function getLastRatings(userId: string) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_URL}/api/books/last-ratings/${userId}`
+    `${process.env.APP_URL}/api/books/last-ratings/${userId}`
   );
   const data = (await response.json()) as Rating[];
 
@@ -47,7 +47,7 @@ export async function getLastRatings(userId: string) {
 
 export async function getProfileInfo(userId: string) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_URL}/api/users/info/${userId}`
+    `${process.env.APP_URL}/api/users/info/${userId}`
   );
   const data = (await response.json()) as ProfileInfo;
 
