@@ -6,10 +6,16 @@ export async function GET(request: NextRequest) {
   const query = request.nextUrl.searchParams;
 
   const user_id = query.get('user_id') ?? '';
+  const categories = query.get('categories');
+  const categoriesArray = categories ? categories.split(',') : [];
 
   const bookOrAuthor = query.get('book_or_author') ?? '';
 
-  const booksWithAverageRate = await getBooksAndRatings(user_id, bookOrAuthor);
+  const booksWithAverageRate = await getBooksAndRatings(
+    user_id,
+    bookOrAuthor,
+    categoriesArray
+  );
 
   const booksWithIntegerAverageRateAndWasRated = booksWithAverageRate.map(
     (book) => ({
@@ -30,21 +36,28 @@ export async function GET(request: NextRequest) {
   return NextResponse.json(booksWithIntegerAverageRateAndWasRated);
 }
 
-async function getBooksAndRatings(userId: string, bookOrAuthor: string) {
+async function getBooksAndRatings(
+  userId: string,
+  bookOrAuthor: string,
+  categories: string[]
+) {
   const books = await prisma.book.findMany({
     orderBy: {
       created_at: 'desc',
     },
     where: {
-      categories: {
-        some: {
-          category: {
-            id: {
-              contains: '',
+      categories:
+        categories.length > 0
+          ? {
+              some: {
+                category: {
+                  id: {
+                    in: categories,
+                  },
+                },
+              },
             }
-          }
-        }
-      },
+          : {},
       OR: [
         {
           name: {

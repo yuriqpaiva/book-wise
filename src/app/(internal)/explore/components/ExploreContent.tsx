@@ -25,16 +25,17 @@ export function ExploreContent({ categories, userId }: Props) {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   const [currentBooks, setCurrentBooks] = useAtom(exploreBooksAtom);
-  const [filterQuery, setFilterQuery] = useState('');
+  const [searchFilterQuery, setSearchFilterQuery] = useState('');
 
   function handleFilterQueryChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setFilterQuery(event.target.value);
+    setSearchFilterQuery(event.target.value);
   }
 
   async function filterBooks() {
     const params = new URLSearchParams();
     params.append('user_id', userId);
-    params.append('book_or_author', filterQuery);
+    params.append('book_or_author', searchFilterQuery);
+    params.append('categories', selectedCategories.join(','));
 
     const url = `${
       process.env.NEXT_PUBLIC_APP_URL
@@ -44,6 +45,11 @@ export function ExploreContent({ categories, userId }: Props) {
 
     setCurrentBooks(data);
   }
+
+  useEffect(() => {
+    filterBooks();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategories]);
 
   function handleSelectAll() {
     setSelectedCategories([]);
@@ -84,7 +90,7 @@ export function ExploreContent({ categories, userId }: Props) {
         </h1>
         <SearchInput
           onTimeout={filterBooks}
-          value={filterQuery}
+          value={searchFilterQuery}
           onChange={handleFilterQueryChange}
           className="max-w-[433px]"
           placeholder="Buscar livro ou autor"
