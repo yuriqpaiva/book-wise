@@ -21,7 +21,7 @@ export function RatingCard({ rating }: Props) {
   const isUser = data?.user?.id === rating.user.id
 
   return (
-    <Box className={`${isUser ? 'bg-brand-600' : 'bg-gray-700'}`}>
+    <Box className={`${isUser ? 'bg-gray-600' : 'bg-gray-700'}`}>
       <div className="flex justify-between">
         <div className="flex gap-4">
           <Image

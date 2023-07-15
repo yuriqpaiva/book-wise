@@ -57,14 +57,14 @@ export function SendRatingForm({ user, onClose, onSubmit }: Props) {
         <button
           title="Cancelar avaliação"
           onClick={onClose}
-          className="leading-none p-2 rounded flex justify-center items-center bg-gray-650 hover:bg-gray-500"
+          className="leading-none p-2 rounded flex justify-center items-center bg-gray-600 hover:bg-gray-500"
         >
           <XMarkIcon className="h-6 w-6 text-purple-100" />
         </button>
         <button
           type="submit"
           title="Enviar avaliação"
-          className="leading-none p-2 rounded flex justify-center items-center bg-gray-650 hover:bg-gray-500"
+          className="leading-none p-2 rounded flex justify-center items-center bg-gray-600 hover:bg-gray-500"
         >
           <CheckIcon className="h-6 w-6 text-green-100" />
         </button>

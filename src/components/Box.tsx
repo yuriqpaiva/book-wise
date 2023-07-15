@@ -1,4 +1,5 @@
 import { ReactNode, ElementType, FormEvent } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 interface Props {
   as?: ElementType;
@@ -16,7 +17,7 @@ export function Box({
 }: Props) {
   return (
     <Element
-      className={`bg-gray-700 p-6 rounded-lg ${className}`}
+      className={twMerge('bg-gray-700 p-6 rounded-lg', className)}
       onSubmit={onSubmit}
       {...rest}
     >
