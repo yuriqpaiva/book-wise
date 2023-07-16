@@ -11,7 +11,9 @@ interface Props {
 }
 
 export function HydrateExploreBooksAtoms({ booksFromServer, children }: Props) {
-  useHydrateAtoms([[exploreBooksAtom, booksFromServer]]);
+  useHydrateAtoms([[exploreBooksAtom, booksFromServer]], {
+    dangerouslyForceHydrate: true,
+  });
 
   return children;
 }

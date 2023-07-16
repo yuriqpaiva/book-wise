@@ -4,7 +4,7 @@ import { BookDrawer } from '@/app/(internal)/explore/components/BookDrawer';
 import { ExploreBookCard } from '@/components/ExploreBookCard';
 import { FilterTag } from '@/components/FilterTag';
 import { Category } from '@prisma/client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ExploreBookData } from '../page';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import {
@@ -13,7 +13,7 @@ import {
   openBookDrawerAtom,
 } from '@/atoms/book-drawer-atoms';
 import { exploreBooksAtom } from '@/atoms/explore-book-atoms';
-import { BookOpenIcon } from '@heroicons/react/24/outline';
+import { BookOpenIcon, FaceFrownIcon } from '@heroicons/react/24/outline';
 import { SearchInput } from '@/components/SearchInput';
 
 interface Props {
@@ -25,16 +25,13 @@ export function ExploreContent({ categories, userId }: Props) {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   const [currentBooks, setCurrentBooks] = useAtom(exploreBooksAtom);
-  const [searchFilterQuery, setSearchFilterQuery] = useState('');
 
-  function handleFilterQueryChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setSearchFilterQuery(event.target.value);
-  }
+  const searchFilterQueryRef = useRef<HTMLInputElement>(null);
 
   async function filterBooks(categories?: string[]) {
     const params = new URLSearchParams();
     params.append('user_id', userId);
-    params.append('book_or_author', searchFilterQuery);
+    params.append('book_or_author', searchFilterQueryRef.current?.value ?? '');
 
     if (categories) {
       params.append('categories', categories.join(','));
@@ -85,16 +82,15 @@ export function ExploreContent({ categories, userId }: Props) {
   }
 
   return (
-    <>
+    <div className="max-w-[1140px]">
       <div className="flex justify-between w-full">
         <h1 className="flex gap-3 text-2xl font-semibold mb-10">
           <BookOpenIcon className="h-8 w-8 text-green-100" />
           Explorar
         </h1>
         <SearchInput
+          ref={searchFilterQueryRef}
           onTimeout={filterBooks}
-          value={searchFilterQuery}
-          onChange={handleFilterQueryChange}
           className="max-w-[433px]"
           placeholder="Buscar livro ou autor"
         />
@@ -115,15 +111,27 @@ export function ExploreContent({ categories, userId }: Props) {
             />
           ))}
 
-          <div className="w-full grid grid-cols-3 gap-5 mt-12 mb-10">
-            {currentBooks.map((book) => (
-              <ExploreBookCard
-                key={book.id}
-                book={book}
-                onClick={() => handleBookDrawerOpen(book)}
+          {currentBooks.length > 0 ? (
+            <div className="w-full grid grid-cols-3 gap-5 mt-12 mb-10">
+              {currentBooks.map((book) => (
+                <ExploreBookCard
+                  key={book.id}
+                  book={book}
+                  onClick={() => handleBookDrawerOpen(book)}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="w-full h-[calc(100vh-500px)] gap-5 mt-12 mb-10 flex flex-col justify-center items-center">
+              <FaceFrownIcon
+                className="h-32 w-32 text-gray-300"
+                strokeWidth={1}
               />
-            ))}
-          </div>
+              <span className="text-gray-300">
+                Não conseguimos encontrar nenhum livro relacionado à sua busca.
+              </span>
+            </div>
+          )}
         </div>
       </div>
       <BookDrawer
@@ -131,6 +139,6 @@ export function ExploreContent({ categories, userId }: Props) {
         onClose={handleBookDrawerClose}
         book={currentSelectedBook}
       />
-    </>
+    </div>
   );
 }
