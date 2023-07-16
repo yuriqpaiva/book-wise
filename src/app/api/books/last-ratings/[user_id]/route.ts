@@ -1,16 +1,25 @@
 import { prisma } from '@/lib/prisma';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
-  _: Request,
+  request: NextRequest,
   { params }: { params: { user_id: string } }
 ) {
   const { user_id } = params;
+  const query = request.nextUrl.searchParams;
+  const filter = query.get('filter') ?? '';
 
   const user = await prisma.user.findUnique({
     where: { id: user_id },
     include: {
       ratings: {
+        where: {
+          book: {
+            name: {
+              contains: filter,
+            },
+          },
+        },
         include: { book: true },
         orderBy: { created_at: 'desc' },
       },
@@ -23,7 +32,5 @@ export async function GET(
     });
   }
 
-  const ratings = user.ratings;
-
-  return NextResponse.json(ratings);
+  return NextResponse.json(user.ratings);
 }

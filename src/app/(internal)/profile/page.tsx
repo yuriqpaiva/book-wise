@@ -11,8 +11,9 @@ import {
 import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
+import { ProfileBooksList } from './components/ProfileBooksList';
 
-interface Rating {
+export interface RatingWithBook {
   id: string;
   rate: number;
   description: string;
@@ -40,7 +41,7 @@ export async function getLastRatings(userId: string) {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_APP_URL}/api/books/last-ratings/${userId}`
   );
-  const data = (await response.json()) as Rating[];
+  const data = (await response.json()) as RatingWithBook[];
 
   return data;
 }
@@ -76,13 +77,8 @@ export default async function ProfilePage() {
           <UserIcon className="h-8 w-8 text-green-100" />
           Perfil
         </h1>
-        <SearchInput placeholder="Buscar livro avaliado" />
 
-        <div className="mt-8 flex flex-col gap-6 pb-10">
-          {ratings.map((rating) => (
-            <ProfileBookCard key={rating.id} {...rating} />
-          ))}
-        </div>
+        <ProfileBooksList ratings={ratings} />
       </div>
       <div className="h-full mt-[4.5rem] border-l border-gray-700 flex flex-col items-center max-w-[387px]">
         <div className="h-[4.75rem] w-[4.75rem] bg-gradient-vertical rounded-full flex items-center justify-center">

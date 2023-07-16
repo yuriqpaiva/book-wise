@@ -67,7 +67,7 @@ export default async function Home() {
         <div className="mt-[4.5rem] mb-4 flex items-center justify-between">
           <h2 className="text-sm">Livros populares</h2>
           <Link
-            href="/books"
+            href="/explore"
             className="flex items-center gap-2 text-sm text-purple-100 font-semibold"
           >
             Ver todos

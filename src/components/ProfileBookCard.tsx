@@ -33,7 +33,7 @@ export function ProfileBookCard({
           {formattedDistanceDate}
         </span>
       </div>
-      <Box className="bg-gray-700 hover:bg-gray-600 hover:ring-2 hover:ring-gray-500">
+      <Box className="bg-gray-700 hover:bg-brand-600 hover:ring-2 hover:ring-gray-500">
         <div className="flex gap-6 mb-6">
           <div>
             <Image src={book.cover_url} width={98} height={134} alt="" />
