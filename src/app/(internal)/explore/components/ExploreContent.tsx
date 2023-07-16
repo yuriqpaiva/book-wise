@@ -31,11 +31,14 @@ export function ExploreContent({ categories, userId }: Props) {
     setSearchFilterQuery(event.target.value);
   }
 
-  async function filterBooks() {
+  async function filterBooks(categories?: string[]) {
     const params = new URLSearchParams();
     params.append('user_id', userId);
     params.append('book_or_author', searchFilterQuery);
-    params.append('categories', selectedCategories.join(','));
+
+    if (categories) {
+      params.append('categories', categories.join(','));
+    }
 
     const url = `${
       process.env.NEXT_PUBLIC_APP_URL
@@ -46,13 +49,9 @@ export function ExploreContent({ categories, userId }: Props) {
     setCurrentBooks(data);
   }
 
-  useEffect(() => {
-    filterBooks();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCategories]);
-
   function handleSelectAll() {
     setSelectedCategories([]);
+    filterBooks();
   }
 
   function handleCategoryClick(categoryId: string) {
@@ -62,7 +61,11 @@ export function ExploreContent({ categories, userId }: Props) {
       );
       return;
     }
+
     setSelectedCategories((prev) => [...prev, categoryId]);
+
+    const nextSelectedCategories = [...selectedCategories, categoryId];
+    filterBooks(nextSelectedCategories);
   }
 
   const isBookDrawerOpen = useAtomValue(isBookDrawerOpenAtom);
