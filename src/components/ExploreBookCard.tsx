@@ -37,7 +37,7 @@ export function ExploreBookCard({ book, ...props }: Props) {
         <RatingStars rate={book.average_rate} />
       </div>
       {book.read && (
-        <div className="absolute right-0 bottom-0 py-1 px-3 bg-green-300 flex justify-center items-center rounded-br-lg">
+        <div className="absolute left-0 bottom-0 py-1 px-3 bg-green-300 flex justify-center items-center rounded-bl-lg">
           <span className="text-green-100 text-xs uppercase">Lido</span>
         </div>
       )}

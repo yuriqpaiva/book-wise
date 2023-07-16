@@ -44,10 +44,25 @@ export function SendRatingForm({ user, onClose, onSubmit }: Props) {
           name="rate"
           control={control}
           render={({ field }) => (
-            <RateInput value={field.value} onChange={field.onChange} />
+            <RateInput
+              value={field.value}
+              onChange={field.onChange}
+              className="sm:block hidden"
+            />
           )}
         />
       </div>
+      <Controller
+        name="rate"
+        control={control}
+        render={({ field }) => (
+          <RateInput
+            value={field.value}
+            onChange={field.onChange}
+            className="block sm:hidden mb-6"
+          />
+        )}
+      />
       <TextArea
         value={description}
         placeholder="Escreva sua avaliação"

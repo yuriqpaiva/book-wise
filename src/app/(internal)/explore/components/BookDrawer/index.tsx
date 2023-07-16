@@ -152,7 +152,7 @@ export function BookDrawer({ isOpen, onClose, book }: Props) {
       >
         <div
           ref={drawerRef}
-          className={`overflow-y-auto h-screen bg-gray-800 fixed right-0 top-0 transition-all duration-200 ease-in-out z-20 w-[660px] px-12 py-6
+          className={`overflow-y-auto h-screen bg-gray-800 fixed right-0 top-0 transition-all duration-200 ease-in-out z-40 lg:w-[660px] lg:px-12 py-6 px-4
       ${isOpen ? 'translate-x-0' : 'translate-x-full'}
       `}
         >

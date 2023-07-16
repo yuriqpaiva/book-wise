@@ -4,9 +4,10 @@ import { StarIcon as StarIconOutline } from '@heroicons/react/24/outline';
 interface Props {
   value: number;
   onChange: (value: number) => void;
+  className?: string;
 }
 
-export function RateInput({ value, onChange }: Props) {
+export function RateInput({ value, onChange, className }: Props) {
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const value = Number(event.target.value);
     onChange(value);
@@ -17,7 +18,7 @@ export function RateInput({ value, onChange }: Props) {
   }
 
   return (
-    <div>
+    <div className={className}>
       <input
         type="number"
         value={value}

@@ -19,7 +19,7 @@ export function BookSummaryCard({ book }: Props) {
         <Image src={book.cover_url} height={242} width={171} alt="" className='object-cover' />
         <div className="flex flex-col justify-between">
           <div>
-            <h3 className="font-semibold text-lg text-gray-100">{book.name}</h3>
+            <h3 className="font-semibold text-lg text-gray-100 line-clamp-2">{book.name}</h3>
             <span className="block text-gray-300">{book.author}</span>
           </div>
           <div>
@@ -30,7 +30,7 @@ export function BookSummaryCard({ book }: Props) {
           </div>
         </div>
       </div>
-      <div className="mt-10 border-t border-gray-600 grid grid-cols-2 gap-x-16 pt-6">
+      <div className="mt-10 border-t border-gray-600 grid sm:grid-cols-2 gap-x-16 pt-6 sm:gap-y-0 gap-y-6">
         <div className="flex items-center">
           <BookmarkIcon className="w-8 h-8 text-green-100 mr-4" />
           <div>

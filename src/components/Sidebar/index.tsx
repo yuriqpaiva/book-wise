@@ -47,7 +47,7 @@ export function Sidebar() {
       />
 
       {/* Top Menu */}
-      <div className="fixed top-0 left-0 w-full h-16 items-center px-12 xl:hidden flex bg-gray-600">
+      <div className="fixed top-0 left-0 w-full h-16 items-center px-12 xl:hidden flex bg-gray-600 z-10">
         <button onClick={toggleSidebar} className="absolute">
           <Bars3Icon className="h-10 w-10 text-purple-100" />
         </button>
@@ -63,7 +63,7 @@ export function Sidebar() {
 
       <div className="xl:w-[232px]" />
       <aside
-        className={`z-50 transition-all duration-200 ease-in-out w-[232px] rounded-xl bg-aside bg-no-repeat bg-cover flex flex-col items-center px-10 xl:py-8 py-16 fixed h-[calc(100%-2.5rem)] 
+        className={`z-30 transition-all duration-200 ease-in-out w-[232px] rounded-xl bg-aside bg-no-repeat bg-cover flex flex-col items-center px-10 xl:py-8 py-16 fixed h-[calc(100%-2.5rem)] 
       ${isSidebarOpen ? 'translate-x-0' : 'xl:translate-x-0 -translate-x-full'}
       `}
       >

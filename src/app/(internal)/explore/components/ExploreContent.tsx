@@ -83,7 +83,7 @@ export function ExploreContent({ categories, userId }: Props) {
 
   return (
     <div className="max-w-[1140px]">
-      <div className="flex justify-between w-full">
+      <div className="flex justify-between w-full lg:flex-row flex-col">
         <h1 className="flex gap-3 text-2xl font-semibold mb-10">
           <BookOpenIcon className="h-8 w-8 text-green-100" />
           Explorar
@@ -112,7 +112,7 @@ export function ExploreContent({ categories, userId }: Props) {
           ))}
 
           {currentBooks.length > 0 ? (
-            <div className="w-full grid grid-cols-3 gap-5 mt-12 mb-10">
+            <div className="w-full grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 mt-12 mb-10">
               {currentBooks.map((book) => (
                 <ExploreBookCard
                   key={book.id}
