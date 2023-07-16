@@ -15,7 +15,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { signOut } from 'next-auth/react';
 import logoImage from '../../assets/logo.svg';
-import { useEffect } from 'react';
 import { useAtom } from 'jotai';
 import { closeSidebarAtom, toggleSidebarAtom } from '@/atoms/sidebar-atoms';
 import clsx from 'clsx';
@@ -31,10 +30,6 @@ export function Sidebar() {
 
   const [isSidebarOpen, toggleSidebar] = useAtom(toggleSidebarAtom);
   const [, closeSidebar] = useAtom(closeSidebarAtom);
-
-  useEffect(() => {
-    closeSidebar();
-  }, [pathname, closeSidebar]);
 
   return (
     <>
@@ -67,7 +62,10 @@ export function Sidebar() {
       ${isSidebarOpen ? 'translate-x-0' : 'xl:translate-x-0 -translate-x-full'}
       `}
       >
-        <button className="absolute right-5 top-5 bg-gray-500 p-1 rounded xl:hidden" onClick={closeSidebar}>
+        <button
+          className="absolute right-5 top-5 bg-gray-500 p-1 rounded xl:hidden"
+          onClick={closeSidebar}
+        >
           <ChevronDoubleLeftIcon className="h-5 w-5 text-purple-100" />
         </button>
 

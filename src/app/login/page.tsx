@@ -12,7 +12,7 @@ import Link from 'next/link';
 export default function LoginPage() {
   return (
     <div className="h-screen flex max-w-[1800px] mx-auto">
-      <div className="w-1/2 p-4">
+      <div className="w-1/2 p-4 lg:block hidden">
         <div className="bg-login-cover bg-cover bg-no-repeat w-full h-full flex justify-center items-center rounded-lg">
           <Image
             src={logoImage}
@@ -24,8 +24,16 @@ export default function LoginPage() {
           />
         </div>
       </div>
-      <div className="w-1/2 h-screen flex justify-center items-center">
+      <div className="lg:w-1/2 w-full h-screen flex justify-center items-center">
         <div className="max-w-[372px] w-full">
+          <Image
+            src={logoImage}
+            alt="Login Cover"
+            quality={100}
+            height={58}
+            width={232}
+            className="object-cover lg:hidden mb-12"
+          />
           <h1 className="text-2xl text-gray-100 leading-snug font-bold mb-[2px]">
             Boas vindas!
           </h1>
