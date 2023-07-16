@@ -71,7 +71,7 @@ export default async function ProfilePage() {
   ]);
 
   return (
-    <div className="grid grid-cols-[624px_1fr] gap-x-16">
+    <div className="grid md:grid-cols-[minmax(100px,624px)_1fr] gap-x-16">
       <div>
         <h1 className="flex gap-3 text-2xl font-semibold mb-10">
           <UserIcon className="h-8 w-8 text-green-100" />
@@ -80,7 +80,7 @@ export default async function ProfilePage() {
 
         <ProfileBooksList ratings={ratings} />
       </div>
-      <div className="h-full mt-[4.5rem] border-l border-gray-700 flex flex-col items-center max-w-[387px]">
+      <div className="h-full mt-[4.5rem] md:border-l md:border-t-0 border-t md:pt-0 pt-12 border-gray-700 flex flex-col items-center max-w-[387px]">
         <div className="h-[4.75rem] w-[4.75rem] bg-gradient-vertical rounded-full flex items-center justify-center">
           {data?.user.avatar_url ? (
             <Image

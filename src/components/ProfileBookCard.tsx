@@ -35,7 +35,6 @@ export function ProfileBookCard({
       </div>
       <Box className="bg-gray-700 hover:bg-brand-600 hover:ring-2 hover:ring-gray-500">
         <div className="flex gap-6 mb-6">
-          <div>
             <Image
               src={book.cover_url}
               width={98}
@@ -43,10 +42,9 @@ export function ProfileBookCard({
               alt=""
               className="object-cover"
             />
-          </div>
           <div className="flex flex-col justify-between">
             <div>
-              <h4 className="text-lg font-semibold">{book.name}</h4>
+              <h4 className="text-lg font-semibold line-clamp-2">{book.name}</h4>
               <span className="block text-gray-400 text-sm">{book.author}</span>
             </div>
             <RatingStars rate={rate} />

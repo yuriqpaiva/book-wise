@@ -48,7 +48,7 @@ export function ProfileBooksList({ ratings }: Props) {
       ) : (
         <div className="w-full h-[calc(100vh-500px)] gap-5 mt-12 mb-10 flex flex-col justify-center items-center">
           <FaceFrownIcon className="h-32 w-32 text-gray-300" strokeWidth={1} />
-          <span className="text-gray-300">
+          <span className="text-gray-300 text-center">
             Não conseguimos encontrar nenhum livro relacionado à sua busca.
           </span>
         </div>
