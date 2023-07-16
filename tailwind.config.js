@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       gridTemplateColumns: {
-        content: '560px 1fr',
+        content: 'minmax(430px, 560px) minmax(320px, 1fr)',
       },
       backgroundImage: {
         'login-cover': 'url("/images/login-cover.png")',
