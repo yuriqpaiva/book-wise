@@ -63,7 +63,7 @@ export default async function Home() {
           ))}
         </div>
       </div>
-      <div>
+      <div className='max-w-[608px]'>
         <div className="mt-[4.5rem] mb-4 flex items-center justify-between">
           <h2 className="text-sm">Livros populares</h2>
           <Link
@@ -74,7 +74,7 @@ export default async function Home() {
             <ChevronRightIcon className="h-5 w-5" />
           </Link>
         </div>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 ">
           {mostRatedBooks.map((book) => (
             <PopularBookCard key={book.name} book={book} />
           ))}

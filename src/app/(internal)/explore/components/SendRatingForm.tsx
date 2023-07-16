@@ -32,7 +32,7 @@ export function SendRatingForm({ user, onClose, onSubmit }: Props) {
       <div className="flex justify-between items-center mb-6">
         <div className="flex gap-4 items-center">
           <Image
-            className="rounded-full h-10 w-10"
+            className="rounded-full h-10 w-10 object-cover"
             src={user.avatar_url}
             height={40}
             width={40}

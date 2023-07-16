@@ -16,7 +16,7 @@ export function BookSummaryCard({ book }: Props) {
   return (
     <Box className="bg-gray-700 mt-4 ">
       <div className="flex gap-8">
-        <Image src={book.cover_url} height={242} width={171} alt="" />
+        <Image src={book.cover_url} height={242} width={171} alt="" className='object-cover' />
         <div className="flex flex-col justify-between">
           <div>
             <h3 className="font-semibold text-lg text-gray-100">{book.name}</h3>

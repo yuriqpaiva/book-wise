@@ -51,7 +51,7 @@ export function Sidebar() {
             width={40}
             height={40}
             alt=""
-            className="h-8 w-8 rounded-full"
+            className="h-8 w-8 rounded-full object-cover"
           />
           <strong className="block font-normal text-sm text-gray-200">
             {data.user.name}

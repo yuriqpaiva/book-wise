@@ -28,7 +28,7 @@ export function ProfileBookCard({
 
   return (
     <div>
-      <div className='first-letter:capitalize mb-2'>
+      <div className="first-letter:capitalize mb-2">
         <span className="text-sm text-gray-300 block">
           {formattedDistanceDate}
         </span>
@@ -36,7 +36,13 @@ export function ProfileBookCard({
       <Box className="bg-gray-700 hover:bg-brand-600 hover:ring-2 hover:ring-gray-500">
         <div className="flex gap-6 mb-6">
           <div>
-            <Image src={book.cover_url} width={98} height={134} alt="" />
+            <Image
+              src={book.cover_url}
+              width={98}
+              height={134}
+              alt=""
+              className="object-cover"
+            />
           </div>
           <div className="flex flex-col justify-between">
             <div>

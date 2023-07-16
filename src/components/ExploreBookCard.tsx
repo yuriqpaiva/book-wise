@@ -18,7 +18,13 @@ export function ExploreBookCard({ book, ...props }: Props) {
       className="relative w-full px-5 py-4 bg-gray-700 rounded-lg flex gap-5 hover:ring-2 hover:ring-gray-500"
       {...props}
     >
-      <Image src={book.cover_url} width={108} height={152} alt="" />
+      <Image
+        src={book.cover_url}
+        width={108}
+        height={152}
+        alt=""
+        className="object-cover"
+      />
       <div className="flex flex-col justify-between h-full">
         <div>
           <strong className="font-semibold inline-block w-full text-left">

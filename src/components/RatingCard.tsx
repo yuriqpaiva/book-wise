@@ -59,7 +59,13 @@ export function RatingCard({ user, rate, created_at, book }: Props) {
       </header>
 
       <div className="mt-8 flex gap-5">
-        <Image src={book.cover_url} alt="" width={108} height={152} />
+        <Image
+          src={book.cover_url}
+          alt=""
+          width={108}
+          height={152}
+          className="object-cover"
+        />
         <div className="flex flex-col justify-between">
           <div>
             <h3 className="font-semibold">{book.name}</h3>

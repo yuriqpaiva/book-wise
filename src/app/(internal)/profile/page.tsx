@@ -88,7 +88,7 @@ export default async function ProfilePage() {
               height={72}
               width={72}
               alt=""
-              className="rounded-full"
+              className="rounded-full object-cover"
             />
           ) : (
             <div className="h-[4.5rem] w-[4.5rem] bg-gray-600 rounded-full flex items-center justify-center">

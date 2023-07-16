@@ -46,7 +46,13 @@ export async function LastReadCard() {
       <h2 className="text-sm font-normal mt-10 mb-4">Sua última leitura</h2>
       <Box className="max-w-[560px] bg-gray-600">
         <div className="flex gap-5">
-          <Image src={book.cover_url} alt="" width={108} height={152} />
+          <Image
+            src={book.cover_url}
+            alt=""
+            width={108}
+            height={152}
+            className="object-cover"
+          />
           <div className="flex flex-col justify-between">
             <div>
               <div className="justify-between flex mb-5">
