@@ -44,22 +44,22 @@ export async function LastReadCard() {
   return (
     <>
       <h2 className="text-sm font-normal mt-10 mb-4">Sua última leitura</h2>
-      <Box className="max-w-[560px] bg-gray-600">
+      <Box className="lg:max-w-[560px] bg-gray-600">
         <div className="flex gap-5">
           <Image
             src={book.cover_url}
             alt=""
             width={108}
             height={152}
-            className="object-cover"
+            className="object-cover rounded-md"
           />
           <div className="flex flex-col justify-between">
             <div>
-              <div className="justify-between flex mb-5">
+              <div className="justify-between flex lg:mb-5 mb-2">
                 <span className="block text-gray-300 text-sm">
                   {formattedDistanceDate}
                 </span>
-                <div className="flex gap-1">
+                <div className="lg:flex hidden gap-1">
                   {Array.from({ length: book.average_rate }).map((_, i) => (
                     <StarIconSolid
                       className="h-4 w-4 text-purple-100"
@@ -75,7 +75,21 @@ export async function LastReadCard() {
                 </div>
               </div>
               <div>
-                <h3 className="font-semibold">{book.name}</h3>
+                <div className="flex lg:hidden gap-1 mb-5">
+                  {Array.from({ length: book.average_rate }).map((_, i) => (
+                    <StarIconSolid
+                      className="h-4 w-4 text-purple-100"
+                      key={i}
+                    />
+                  ))}
+                  {Array.from({ length: 5 - book.average_rate }).map((_, i) => (
+                    <StarIconOutline
+                      className="h-4 w-4 text-purple-100"
+                      key={i}
+                    />
+                  ))}
+                </div>
+                <h3 className="font-semibold line-clamp-2">{book.name}</h3>
                 <span className="block text-gray-400 text-sm mb-5 font-normal">
                   {book.author}
                 </span>

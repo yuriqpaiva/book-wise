@@ -27,7 +27,7 @@ export function RatingCard({ user, rate, created_at, book }: Props) {
   const formattedDistanceDate = useFormatDistanceDateFromNow(created_at);
 
   return (
-    <Box className="max-w-[560px] bg-gray-700">
+    <Box className="lg:max-w-[560px] bg-gray-700">
       <header className="flex justify-between">
         <div className="flex gap-4">
           <Image
@@ -68,7 +68,7 @@ export function RatingCard({ user, rate, created_at, book }: Props) {
         />
         <div className="flex flex-col justify-between">
           <div>
-            <h3 className="font-semibold">{book.name}</h3>
+            <h3 className="font-semibold line-clamp-2">{book.name}</h3>
             <span className="block text-gray-400 text-sm mb-5">
               {book.author}
             </span>

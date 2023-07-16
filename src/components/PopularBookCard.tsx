@@ -27,10 +27,10 @@ export function PopularBookCard({ book }: Props) {
       />
       <div className="flex flex-col justify-between">
         <div>
-          <h4 className="font-semibold">{book.name}</h4>
+          <h4 className="font-semibold line-clamp-2">{book.name}</h4>
           <span className="block text-gray-400 text-sm">{book.author}</span>
         </div>
-        <div className="flex gap-1 bac">
+        <div className="flex gap-1">
           {Array.from({ length: book.averageRate }).map((_, i) => (
             <StarIconSolid className="h-4 w-4 text-purple-100" key={i} />
           ))}
