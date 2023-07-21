@@ -1,6 +1,4 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { ProfileBookCard } from '@/components/ProfileBookCard';
-import { SearchInput } from '@/components/SearchInput';
 import {
   BookOpenIcon,
   BookmarkIcon,
@@ -37,7 +35,7 @@ interface ProfileInfo {
   most_read_category: string;
 }
 
-export async function getLastRatings(userId: string) {
+async function getLastRatings(userId: string) {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_APP_URL}/api/books/last-ratings/${userId}`
   );
@@ -46,7 +44,7 @@ export async function getLastRatings(userId: string) {
   return data;
 }
 
-export async function getProfileInfo(userId: string) {
+async function getProfileInfo(userId: string) {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_APP_URL}/api/users/info/${userId}`
   );

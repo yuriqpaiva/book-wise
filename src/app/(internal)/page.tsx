@@ -27,13 +27,13 @@ export interface RatingBook {
   book: Book;
 }
 
-export async function getRecentRatingBooks() {
+async function getRecentRatingBooks() {
   const res = await import('../api/books/recent-ratings/route');
 
   return await (await res.GET()).json();
 }
 
-export async function getMostRatedBooks() {
+async function getMostRatedBooks() {
   const res = await import('../api/books/most-rated/route');
 
   return await (await res.GET()).json();
@@ -63,7 +63,7 @@ export default async function Home() {
           ))}
         </div>
       </div>
-      <div className='lg:max-w-[608px]'>
+      <div className="lg:max-w-[608px]">
         <div className="mt-[4.5rem] mb-4 flex items-center justify-between">
           <h2 className="text-sm">Livros populares</h2>
           <Link
