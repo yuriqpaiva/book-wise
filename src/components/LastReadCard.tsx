@@ -14,7 +14,7 @@ interface BookWithAverageRate extends Book {
 
 async function getLastReadBook(userId: string | null) {
   const res = await fetch(
-    `http://localhost:3000/api/books/last-read/${userId}`
+    `${process.env.NEXT_PUBLIC_APP_URL}/${userId}`
   );
 
   return res.json();
