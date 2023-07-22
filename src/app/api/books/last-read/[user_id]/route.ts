@@ -44,7 +44,7 @@ export async function GET(
     const sum = ratings.reduce((total, rating) => total + rating.rate, 0);
     const averageRate = sum / ratings.length;
 
-    const roundedAverageRate = Math.floor(averageRate);
+    const roundedAverageRate = Math.ceil(averageRate);
 
     const bookWithAverageRate: BookWithAverageRate = {
       ...book,
