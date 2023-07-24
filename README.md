@@ -34,7 +34,7 @@ This application is built using the following technologies:
 - [TypeScript](https://www.typescriptlang.org/)
 - [TailwindCSS](https://tailwindcss.com/)
 - [Google OAuth2](https://developers.google.com/identity/protocols/oauth2)
-- [GitHub OAuth2]([https://developers.google.com/identity/protocols/oauth2](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps))
+- [GitHub OAuth2](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps)
 
 <br>
 
