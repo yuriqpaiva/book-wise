@@ -14,7 +14,7 @@ BookWise is an exquisitely designed web application that caters to book enthusia
 
 ## 🚀 Features
 
-1. **Book Information:** Access a wealth of details about books, including author, number of pages, genre, and more.
+1. **Book Information:** Access a wealth of details about books, including author, num ber of pages, genre, and more.
 
 2. **User Ratings & Reviews:** Rate and review books to share opinions and help others discover great reads.
 
@@ -34,7 +34,7 @@ This application is built using the following technologies:
 - [TypeScript](https://www.typescriptlang.org/)
 - [TailwindCSS](https://tailwindcss.com/)
 - [Google OAuth2](https://developers.google.com/identity/protocols/oauth2)
-- [GitHub OAuth2](https://developers.google.com/identity/protocols/oauth2)
+- [GitHub OAuth2]([https://developers.google.com/identity/protocols/oauth2](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps))
 
 <br>
 
